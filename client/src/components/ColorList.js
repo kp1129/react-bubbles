@@ -8,7 +8,6 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -19,9 +18,21 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-    // Make a put request to save your updated color
-    // think about where will you get the id from...
-    // where is is saved right now?
+    axiosWithAuth().put(`/api/colors/${colorToEdit.id}`, colorToEdit)
+    .then(res => {
+      console.log(res);
+      const newColors = colors.map( each => {
+        if(each.id === res.data.id){
+          return {
+            ...res.data
+          }
+        } else {
+          return each
+        }
+      });
+      updateColors(newColors);
+    })
+    .catch(err => console.log(err));
   };
 
   const deleteColor = color => {

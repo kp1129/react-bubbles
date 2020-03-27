@@ -30,14 +30,14 @@ const Login = () => {
 
   }
   return (
-    <>
+    <div className="login-page">
       <h1>Welcome to the Bubble App!</h1>   
       <form onSubmit={login}>
         <input onChange={handleUsernameChange} type="text" id="username" name="username" placeholder="username" value={username}/>
         <input onChange={handlePasswordChange} type="text" id="password" name="password" placeholder="password" value={password}/>
         <button type="submit">login</button>
       </form>
-    </>
+    </div>
   );
 };
 
